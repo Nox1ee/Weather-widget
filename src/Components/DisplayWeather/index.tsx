@@ -11,7 +11,7 @@ interface DisplayWeatherProps {
 }
 
 const DisplayWeather = ({ weatherData, forecastData, error, isActive }: DisplayWeatherProps): React.JSX.Element => {
-   const timezone = weatherData?.timezone || forecastData?.city?.timezone;
+   const timezone = weatherData?.timezone || forecastData?.city?.timezone || 0;
 
    const dailyForecast = useMemo(() => {
        // Если isActive true, но данных еще нет - выходим
@@ -85,39 +85,79 @@ const DisplayWeather = ({ weatherData, forecastData, error, isActive }: DisplayW
                   <span className={s.mainDesc}>{weatherData.weather?.[0].description}</span>
                </div>
                <div className={s.weatherSecond}>
-                  <div>
-                     <img src={`${process.env.PUBLIC_URL}/assets/weather-icons/barometer.svg`} alt="" width='50px' />
+                  <div className={s.pressure}>
+                     <WeatherIcon
+                        conditionId={901}
+                        iconCode=""
+                     />
                      <div>
                         <h3>Давление</h3>
-                        <span>{weatherData.main.pressure} гПа</span>
+                        <span>
+                           {weatherData?.main?.pressure
+                              ? weatherData.main.pressure + 'гПа'
+                              : 'Нет данных о влажности'
+                           }
+                        </span>
                      </div>
                   </div>
-                  <div>
-                     <img src={`${process.env.PUBLIC_URL}/assets/weather-icons/humidity.svg`} alt="" width='50px' />
+                  <div className={s.humidity}>
+                     <WeatherIcon
+                        conditionId={902}
+                        iconCode=""
+                     />
                      <div>
                         <h3>Влажность</h3>
-                        <span>{weatherData.main.humidity} %</span>
+                        <span>
+                           {weatherData?.main?.humidity
+                              ? weatherData.main.humidity + '%'
+                              : 'Нет данных о влажности'
+                           }
+                        </span>
                      </div>
                   </div>
-                  <div>
-                     <img src={`${process.env.PUBLIC_URL}/assets/weather-icons//wind.svg`} alt="" width='50px' />
+                  <div className={s.windSpeed}>
+                     <WeatherIcon 
+                        conditionId={903}
+                        iconCode=""
+                     />
                      <div>
                         <h3>Ветер</h3>
-                        <span>{weatherData.wind.speed} м/с</span>
+                        <span>
+                           {weatherData?.wind?.speed
+                              ? weatherData.wind.speed + 'м/с'
+                              : 'Нет данных о скорости ветра'
+                           }
+                        </span>
                      </div>
                   </div>
-                  <div>
-                     <img src={`${process.env.PUBLIC_URL}/assets/weather-icons/sunrise.svg`} alt="" width='50px' />
+                  <div className={s.sunrise}>
+                     <WeatherIcon 
+                        conditionId={904}
+                        iconCode=""
+                     />
                      <div>
                         <h3>Восход</h3>
-                        <span>{formatWeatherTime(weatherData.sys.sunrise, timezone)}</span>
+                        <span>
+                           {weatherData?.sys?.sunrise
+                              ? formatWeatherTime(weatherData.sys.sunrise, timezone)
+                              : 'Нет данных о восходе'
+                           }
+                        </span>
                      </div>
                   </div>
-                  <div>
-                     <img src={`${process.env.PUBLIC_URL}/assets/weather-icons/sunset.svg`} alt="" width='50px' />
+                  <div className={s.sunset}>
+                     <WeatherIcon 
+                        conditionId={905}
+                        iconCode=""
+                     />
                      <div>
                         <h3>Закат</h3>
-                        <span>{formatWeatherTime(weatherData.sys.sunset, timezone)}</span>
+                        <span>
+                           {weatherData?.sys?.sunset
+                              ? formatWeatherTime(weatherData.sys.sunset, timezone)
+                              : 'Нет данных о закате'
+                           }
+                        </span>
                      </div>
                   </div>
                </div>
