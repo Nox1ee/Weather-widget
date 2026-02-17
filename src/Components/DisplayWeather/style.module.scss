@@ -1,0 +1,159 @@
+.error {
+   text-align: center;
+   
+   color: red;
+   font-size: 2rem;
+   font-weight: 700;
+
+   margin-top: 20px;
+}
+
+.weather {
+   position: relative;
+}
+
+.weatherBlock {
+   margin-top: 30px;
+}
+
+.weatherMain {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+
+   & > h1 {
+      color: #363636;
+   }
+
+   & > h3 {
+      color: #363636;
+   }
+}
+
+.mainTemp {
+   font-size: 56px;
+   font-weight: 500;
+   display: flex;
+}
+
+.tempSymbol {
+   font-size: 20px;
+}
+
+.mainDesc {
+   font-size: 24px;
+   text-transform: capitalize;
+   font-weight: 700;
+}
+
+.weatherSecond {
+   margin-top: 20px;
+
+   display: flex;
+   justify-content: center;
+   flex-wrap: wrap;
+
+   gap: 25px;
+
+   & > div {
+      display: flex;
+      align-items: center;
+
+      & > div {
+         display: flex;
+         flex-direction: column;
+
+         & > h3 {
+            color: #363636;
+            font-weight: 400;
+         }
+
+         & > span {
+            color: black;
+            font-weight: 700;
+         }
+      }
+   }
+}
+
+// 
+
+.forecastBlock {
+   position: absolute;
+   left: 560px;
+   top: -231px;
+
+   background: #000;
+   height: 820px;
+   width: 300px;
+
+   border-radius: 20px;
+   background: rgba(255, 255, 255, 0.05);
+   backdrop-filter: blur(5px);
+   -webkit-backdrop-filter: blur(5px);
+   border: 1px solid rgba(255, 255, 255, 0.2);
+
+    // Начальное состояние(закрытое)
+   opacity: 0;
+   visibility: hidden;
+   // Сдвигаем блок на 50px левее и немного уменьшаем для эффекта появления
+   transform: translateX(-50px) scale(0.95); 
+   
+   transition: 
+      transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), // эффект "прыжка" в конце
+      opacity 0.4s ease,
+      visibility 0.4s;
+
+   // Состояние при открытии
+   &.isOpen {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0) scale(1);
+   }
+}
+
+.forecastList {
+   padding: 30px;
+   height: 100%;
+
+   display: flex;
+   flex-direction: column;
+   
+   text-align: center;
+   justify-content: space-between;
+}
+
+.forecastItem {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding: 10px 0;
+   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+   &:last-child {
+      border-bottom: none;
+   }
+}
+
+.date {
+   color: #363636;
+   font-weight: 700;
+   font-size: 20px;
+   writing-mode:sideways-lr;
+}
+
+.tempDetails {
+   display: flex;
+   gap: 15px;
+   align-items: center;
+
+   & > span {
+      font-size: 20px;
+      font-weight: 700;
+      display: flex;
+
+      & > strong {
+         font-size: 12px;
+      }
+   }
+}
