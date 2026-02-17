@@ -1,6 +1,4 @@
 export const formatWeatherTime = (timestamp: number, timezoneOffset: number = 0): string => {
-  // Создаем дату с учетом смещения часового пояса города
-  // Мы используем UTC методы, чтобы локальное время вашего ПК не влияло на результат
   const date = new Date((timestamp + timezoneOffset) * 1000);
 
   return new Intl.DateTimeFormat('ru-RU', {

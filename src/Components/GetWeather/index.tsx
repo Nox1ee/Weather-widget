@@ -16,21 +16,20 @@
       const [inputValue, setInputValue] = useState<string>('');
       const [activeParams, setActiveParams] = useState<string | null>(null);  
 
-      const abortControllerRef = useRef<AbortController | null>(null); // Для отмены запросов
+      const abortControllerRef = useRef<AbortController | null>(null); 
 
-      const API_KEY = 'c6f6ff41de37ed426e602019ba594840';
+      const API_KEY = 'c6f6ff41de37ed426e602019ba594840'; // Ключ API OpenWeatherMap
 
       const loadWeather = useCallback(async (params: string) => {
          if (!params) return;
 
-         const endpoint = isActive ? 'forecast' : 'weather';
+         const endpoint = isActive ? 'forecast' : 'weather'; 
 
          if (abortControllerRef.current) abortControllerRef.current.abort();
          abortControllerRef.current = new AbortController();
 
          onErrorDrop(null);
          setInputValue('')
-
 
          try {
             const url = `https://api.openweathermap.org/data/2.5/${endpoint}?${params}&appid=${API_KEY}&units=metric&lang=ru`;
@@ -89,7 +88,7 @@
             />
 
             <button className={s.button} onClick={handleGetWeather}>
-               <img src="/assets/weather-icons/search.svg" alt="" />
+               <img src={`${process.env.PUBLIC_URL}/assets/weather-icons/search.svg`} alt="" />
             </button>
          </div>
       );

@@ -47,7 +47,7 @@ const WeatherIcon: React.FC<WeatherIconProps> = ({
   };
 
   const fileName = getIconName(conditionId);
-  const src = `/assets/weather-icons/${fileName}`;
+  const src = `${process.env.PUBLIC_URL}/assets/weather-icons/${fileName}`;
 
   return (
     <img 

@@ -47,6 +47,7 @@ const DisplayWeather = ({ weatherData, forecastData, error, isActive }: DisplayW
                groups[dateKey].max = temp;
                groups[dateKey].dtMax = item.dt;
 
+            // Обновляем иконки
                groups[dateKey].icon = item.weather[0].icon;
                groups[dateKey].conditionId = item.weather[0].id;
             }
@@ -55,6 +56,7 @@ const DisplayWeather = ({ weatherData, forecastData, error, isActive }: DisplayW
                groups[dateKey].min = temp;
                groups[dateKey].dtMin = item.dt;
 
+            // Обновляем иконки
                groups[dateKey].icon = item.weather[0].icon;
                groups[dateKey].conditionId = item.weather[0].id;
             }
@@ -64,7 +66,7 @@ const DisplayWeather = ({ weatherData, forecastData, error, isActive }: DisplayW
       return Object.values(groups).slice(0, 5);
    }, [forecastData, isActive, timezone]);
 
-
+   // Если Error - ничего не выводим
    if (error) return <>{error && <p className={s.error}>{error}</p>}</>;
 
     return (
@@ -84,35 +86,35 @@ const DisplayWeather = ({ weatherData, forecastData, error, isActive }: DisplayW
                </div>
                <div className={s.weatherSecond}>
                   <div>
-                     <img src="/assets/weather-icons/barometer.svg" alt="" width='50px' />
+                     <img src={`${process.env.PUBLIC_URL}/assets/weather-icons/barometer.svg`} alt="" width='50px' />
                      <div>
                         <h3>Давление</h3>
                         <span>{weatherData.main.pressure} гПа</span>
                      </div>
                   </div>
                   <div>
-                     <img src="/assets/weather-icons/humidity.svg" alt="" width='50px' />
+                     <img src={`${process.env.PUBLIC_URL}/assets/weather-icons/humidity.svg`} alt="" width='50px' />
                      <div>
                         <h3>Влажность</h3>
                         <span>{weatherData.main.humidity} %</span>
                      </div>
                   </div>
                   <div>
-                     <img src="/assets/weather-icons/wind.svg" alt="" width='50px' />
+                     <img src={`${process.env.PUBLIC_URL}/assets/weather-icons//wind.svg`} alt="" width='50px' />
                      <div>
                         <h3>Ветер</h3>
                         <span>{weatherData.wind.speed} м/с</span>
                      </div>
                   </div>
                   <div>
-                     <img src="/assets/weather-icons/sunrise.svg" alt="" width='50px' />
+                     <img src={`${process.env.PUBLIC_URL}/assets/weather-icons/sunrise.svg`} alt="" width='50px' />
                      <div>
                         <h3>Восход</h3>
                         <span>{formatWeatherTime(weatherData.sys.sunrise, timezone)}</span>
                      </div>
                   </div>
                   <div>
-                     <img src="/assets/weather-icons/sunset.svg" alt="" width='50px' />
+                     <img src={`${process.env.PUBLIC_URL}/assets/weather-icons/sunset.svg`} alt="" width='50px' />
                      <div>
                         <h3>Закат</h3>
                         <span>{formatWeatherTime(weatherData.sys.sunset, timezone)}</span>
