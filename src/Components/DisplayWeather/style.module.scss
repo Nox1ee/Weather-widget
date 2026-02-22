@@ -12,6 +12,7 @@
    position: relative;
 }
 
+   // Weather Block
 .weatherBlock {
    margin-top: 30px;
 }
@@ -50,34 +51,35 @@
    margin-top: 20px;
 
    display: flex;
-   justify-content: center;
-   flex-wrap: wrap;
+   flex-direction: column;
+   align-items: center;
+   gap: 25px;
+}
 
+.weatherInfo,
+.weatherSun {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: center;
    gap: 25px;
 
    & > div {
       display: flex;
       align-items: center;
 
-      & > div {
-         display: flex;
-         flex-direction: column;
+      h3 {
+         color: #363636;
+         font-weight: 400;
+      }
 
-         & > h3 {
-            color: #363636;
-            font-weight: 400;
-         }
-
-         & > span {
-            color: black;
-            font-weight: 700;
-         }
+      span {
+         color: black;
+         font-weight: 700;
       }
    }
 }
 
-// 
-
+// Forecast Block
 .forecastBlock {
    position: absolute;
    left: 560px;
@@ -93,7 +95,7 @@
    -webkit-backdrop-filter: blur(5px);
    border: 1px solid rgba(255, 255, 255, 0.2);
 
-    // Начальное состояние(закрытое)
+   // Начальное состояние(закрытое)
    opacity: 0;
    visibility: hidden;
    // Сдвигаем блок на 50px левее и немного уменьшаем для эффекта появления
@@ -155,5 +157,27 @@
       & > strong {
          font-size: 12px;
       }
+   }
+}
+
+// Media
+
+@media (max-width: 1399.98px) {
+   .error {
+      font-size: 1.75rem;
+   }
+
+   .weatherSecond {
+      gap: 10px;
+   }
+
+   .weatherInfo,
+   .weatherSun {
+      gap: 10px;
+   }
+
+   .forecastBlock {
+      left: 460px;
+      top: -211px
    }
 }

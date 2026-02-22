@@ -85,7 +85,8 @@ const DisplayWeather = ({ weatherData, forecastData, error, isActive }: DisplayW
                   <span className={s.mainDesc}>{weatherData.weather?.[0].description}</span>
                </div>
                <div className={s.weatherSecond}>
-                  <div className={s.pressure}>
+                  <div className={s.weatherInfo}>
+                     <div className={s.pressure}>
                      <WeatherIcon
                         conditionId={901}
                         iconCode=""
@@ -99,65 +100,68 @@ const DisplayWeather = ({ weatherData, forecastData, error, isActive }: DisplayW
                            }
                         </span>
                      </div>
-                  </div>
-                  <div className={s.humidity}>
-                     <WeatherIcon
-                        conditionId={902}
-                        iconCode=""
-                     />
-                     <div>
-                        <h3>Влажность</h3>
-                        <span>
-                           {weatherData?.main?.humidity
-                              ? weatherData.main.humidity + '%'
-                              : 'Нет данных о влажности'
-                           }
-                        </span>
+                     </div>
+                     <div className={s.humidity}>
+                        <WeatherIcon
+                           conditionId={902}
+                           iconCode=""
+                        />
+                        <div>
+                           <h3>Влажность</h3>
+                           <span>
+                              {weatherData?.main?.humidity
+                                 ? weatherData.main.humidity + '%'
+                                 : 'Нет данных о влажности'
+                              }
+                           </span>
+                        </div>
+                     </div>
+                     <div className={s.windSpeed}>
+                        <WeatherIcon 
+                           conditionId={903}
+                           iconCode=""
+                        />
+                        <div>
+                           <h3>Ветер</h3>
+                           <span>
+                              {weatherData?.wind?.speed
+                                 ? weatherData.wind.speed + 'м/с'
+                                 : 'Нет данных о скорости ветра'
+                              }
+                           </span>
+                        </div>
                      </div>
                   </div>
-                  <div className={s.windSpeed}>
-                     <WeatherIcon 
-                        conditionId={903}
-                        iconCode=""
-                     />
-                     <div>
-                        <h3>Ветер</h3>
-                        <span>
-                           {weatherData?.wind?.speed
-                              ? weatherData.wind.speed + 'м/с'
-                              : 'Нет данных о скорости ветра'
-                           }
-                        </span>
+                  <div className={s.weatherSun}>
+                     <div className={s.sunrise}>
+                        <WeatherIcon 
+                           conditionId={904}
+                           iconCode=""
+                        />
+                        <div>
+                           <h3>Восход</h3>
+                           <span>
+                              {weatherData?.sys?.sunrise
+                                 ? formatWeatherTime(weatherData.sys.sunrise, timezone)
+                                 : 'Нет данных о восходе'
+                              }
+                           </span>
+                        </div>
                      </div>
-                  </div>
-                  <div className={s.sunrise}>
-                     <WeatherIcon 
-                        conditionId={904}
-                        iconCode=""
-                     />
-                     <div>
-                        <h3>Восход</h3>
-                        <span>
-                           {weatherData?.sys?.sunrise
-                              ? formatWeatherTime(weatherData.sys.sunrise, timezone)
-                              : 'Нет данных о восходе'
-                           }
-                        </span>
-                     </div>
-                  </div>
-                  <div className={s.sunset}>
-                     <WeatherIcon 
-                        conditionId={905}
-                        iconCode=""
-                     />
-                     <div>
-                        <h3>Закат</h3>
-                        <span>
-                           {weatherData?.sys?.sunset
-                              ? formatWeatherTime(weatherData.sys.sunset, timezone)
-                              : 'Нет данных о закате'
-                           }
-                        </span>
+                     <div className={s.sunset}>
+                        <WeatherIcon 
+                           conditionId={905}
+                           iconCode=""
+                        />
+                        <div>
+                           <h3>Закат</h3>
+                           <span>
+                              {weatherData?.sys?.sunset
+                                 ? formatWeatherTime(weatherData.sys.sunset, timezone)
+                                 : 'Нет данных о закате'
+                              }
+                           </span>
+                        </div>
                      </div>
                   </div>
                </div>
