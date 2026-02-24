@@ -41,6 +41,7 @@ function App() {
          error={error} 
          isActive={isFiveDays}
       />
+      
       <ToggleButton 
          onClick={setIsFiveDays} 
          weatherData={weather}

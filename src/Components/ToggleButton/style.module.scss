@@ -42,3 +42,15 @@
       margin-top: 25px;
    }
 }
+
+@media (max-width: 575.98px) {
+   .button {
+      font-size: 0.75rem;
+      padding: 6px 12px;
+      border-radius: 8px;
+   }
+
+   .btnContainer {
+      margin-top: 10px;
+   }
+}

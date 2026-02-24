@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import s from "./style.module.scss"
 import { formatWeatherTime, formatWeatherDate } from '../../utils/formateDate'
 import WeatherIcon from "../../utils/weatherIcon";
@@ -11,6 +11,16 @@ interface DisplayWeatherProps {
 }
 
 const DisplayWeather = ({ weatherData, forecastData, error, isActive }: DisplayWeatherProps): React.JSX.Element => {
+   
+   const [isSmall, setIsSmall] = useState(window.innerWidth < 992)
+
+   useEffect(() => {
+      const handleResize = () => setIsSmall(window.innerWidth < 992);
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+   }, []);
+   
+   
    const timezone = weatherData?.timezone || forecastData?.city?.timezone || 0;
 
    const dailyForecast = useMemo(() => {
@@ -71,7 +81,7 @@ const DisplayWeather = ({ weatherData, forecastData, error, isActive }: DisplayW
 
     return (
       <div className={s.weather}>
-         {weatherData && (
+         {!isSmall && weatherData && (
             <div className={s.weatherBlock}>
                <div className={s.weatherMain}>
                   <h1>{weatherData.name}, {formatWeatherDate(weatherData.dt)}</h1>
@@ -168,6 +178,7 @@ const DisplayWeather = ({ weatherData, forecastData, error, isActive }: DisplayW
             </div>
          )}
 
+         {!isSmall && forecastData && (
             <div className={`${s.forecastBlock} ${isActive ? s.isOpen : ''}`}>
                {dailyForecast.length === 0 && <></>}
                <div className={s.forecastList}>
@@ -189,6 +200,136 @@ const DisplayWeather = ({ weatherData, forecastData, error, isActive }: DisplayW
                   ))}
                </div>
             </div>
+         )}
+            
+
+            {isSmall && weatherData && !isActive && (
+               <div className={s.weatherBlock}>
+               <div className={s.weatherMain}>
+                  <h1>{weatherData.name}, {formatWeatherDate(weatherData.dt)}</h1>
+                  <WeatherIcon
+                     conditionId={weatherData.weather[0].id}
+                     iconCode={weatherData.weather[0].icon}
+                     width={window.innerWidth < 576 ? "150px" : "200px"}
+                     height={window.innerWidth < 576 ? "150px" : "200px"}
+                  />
+                  <span className={s.mainTemp}>{Math.round(weatherData.main.temp)} <span className={s.tempSymbol}>°C</span></span>
+                  <span className={s.mainDesc}>{weatherData.weather?.[0].description}</span>
+               </div>
+               <div className={s.weatherSecond}>
+                  <div className={s.weatherInfo}>
+                     <div className={s.pressure}>
+                     <WeatherIcon
+                        conditionId={901}
+                        iconCode=""
+                        width={window.innerWidth < 576 ? "25px" : "50px"}
+                        height={window.innerWidth < 576 ? "25px" : "50px"}
+                     />
+                     <div>
+                        <h3>Давление</h3>
+                        <span>
+                           {weatherData?.main?.pressure
+                              ? weatherData.main.pressure + 'гПа'
+                              : 'Нет данных о влажности'
+                           }
+                        </span>
+                     </div>
+                     </div>
+                     <div className={s.humidity}>
+                        <WeatherIcon
+                           conditionId={902}
+                           iconCode=""
+                           width={window.innerWidth < 576 ? "25px" : "50px"}
+                           height={window.innerWidth < 576 ? "25px" : "50px"}
+                        />
+                        <div>
+                           <h3>Влажность</h3>
+                           <span>
+                              {weatherData?.main?.humidity
+                                 ? weatherData.main.humidity + '%'
+                                 : 'Нет данных о влажности'
+                              }
+                           </span>
+                        </div>
+                     </div>
+                     <div className={s.windSpeed}>
+                        <WeatherIcon 
+                           conditionId={903}
+                           iconCode=""
+                           width={window.innerWidth < 576 ? "25px" : "50px"}
+                           height={window.innerWidth < 576 ? "25px" : "50px"}
+                        />
+                        <div>
+                           <h3>Ветер</h3>
+                           <span>
+                              {weatherData?.wind?.speed
+                                 ? weatherData.wind.speed + 'м/с'
+                                 : 'Нет данных о скорости ветра'
+                              }
+                           </span>
+                        </div>
+                     </div>
+                  </div>
+                  <div className={s.weatherSun}>
+                     <div className={s.sunrise}>
+                        <WeatherIcon 
+                           conditionId={904}
+                           iconCode=""
+                           width={window.innerWidth < 576 ? "25px" : "50px"}
+                           height={window.innerWidth < 576 ? "25px" : "50px"}
+                        />
+                        <div>
+                           <h3>Восход</h3>
+                           <span>
+                              {weatherData?.sys?.sunrise
+                                 ? formatWeatherTime(weatherData.sys.sunrise, timezone)
+                                 : 'Нет данных о восходе'
+                              }
+                           </span>
+                        </div>
+                     </div>
+                     <div className={s.sunset}>
+                        <WeatherIcon 
+                           conditionId={905}
+                           iconCode=""
+                           width={window.innerWidth < 576 ? "25px" : "50px"}
+                           height={window.innerWidth < 576 ? "25px" : "50px"}
+                        />
+                        <div>
+                           <h3>Закат</h3>
+                           <span>
+                              {weatherData?.sys?.sunset
+                                 ? formatWeatherTime(weatherData.sys.sunset, timezone)
+                                 : 'Нет данных о закате'
+                              }
+                           </span>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            )}
+
+            {isSmall && forecastData && isActive && (
+               <div className={s.forecastList}>
+                  {dailyForecast.map((day) => (
+                     <div key={day.dtMax} className={s.forecastItem}>
+                        <p className={s.date}>{formatWeatherDate(day.dtMax, timezone)}</p>
+                        <WeatherIcon 
+                           conditionId={day.conditionId} 
+                           iconCode={day.icon} 
+                           width={window.innerWidth < 576 ? "55px" : "80px"}
+                           height={window.innerWidth < 576 ? "55px" : "80px"} 
+                        />
+
+                        <div className={s.tempDetails}>
+                           <span>{Math.round(day.max)}<strong>°C</strong></span>
+                           <span>{Math.round(day.min)}<strong>°C</strong></span>
+                        </div>
+                     </div>
+                  ))}
+               </div>
+            )}
       </div>
    )
 }
