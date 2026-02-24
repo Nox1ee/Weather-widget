@@ -4,8 +4,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box; 
-  
-  outline: 1px solid red !important;
 }
 
 input, button {
@@ -72,6 +70,10 @@ body {
 }
 
 @media (max-width: 575.98px) {
+   body {
+      height: 100dvh;
+   }
+
    .block {
       width: 90%;
       height: 100%;
