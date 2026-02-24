@@ -288,13 +288,13 @@
    .weatherSecond {
       margin-top: 8px;
 
-      flex-direction: row;
+      flex-direction: column;
       justify-content: space-between;
    }
 
    .weatherInfo,
    .weatherSun {
-      justify-content: start;
+      justify-content: center;
       gap: 3px;
       
       h3 {
