@@ -18,7 +18,7 @@ body {
    background-size: cover;
    background-repeat: no-repeat;
 
-   height: 100vh;
+   height: 100dditvh;
 
    align-content: center;
 }
@@ -70,10 +70,6 @@ body {
 }
 
 @media (max-width: 575.98px) {
-   body {
-      height: 100dvh;
-   }
-
    .block {
       width: 90%;
       height: 100%;
